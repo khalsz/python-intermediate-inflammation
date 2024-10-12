@@ -23,7 +23,7 @@ jobs:
       with: 
         python-version: 3.9
     - name: Install Python requirements
-      runs: |
+      run: |
         pythonn3 -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Test with Pytest
