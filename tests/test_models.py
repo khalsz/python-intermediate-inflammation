@@ -5,7 +5,6 @@ import numpy.testing as npt
 import os
 import pytest
 
-
 def test_daily_mean_zeros():
     """Test that mean function works for an array of zeros."""
     from inflammation.models import daily_mean
@@ -38,6 +37,7 @@ def test_load_from_json(tmpdir):
         temp_json_file.write('[{"observations":[1, 2, 3]},{"observations":[4, 5, 6]}]')
     result = load_json(example_path)
     npt.assert_array_equal(result, [[1, 2, 3], [4, 5, 6]])
+
 
 
 def test_daily_min(): 
@@ -82,3 +82,4 @@ def test_daily_mean_mult(test, expected):
     """Test mean function works for array of zeroes and positive integers."""
     from inflammation.models import daily_mean
     npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
+
