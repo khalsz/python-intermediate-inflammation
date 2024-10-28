@@ -39,12 +39,47 @@ def test_load_from_json(tmpdir):
     npt.assert_array_equal(result, [[1, 2, 3], [4, 5, 6]])
 
 
-@pytest.mark.parametrize('data, expected_standard_deviation', [
-    ([0, 0, 0], 0.0),
-    ([1.0, 1.0, 1.0], 0),
-    ([0.0, 2.0], 1.0)
-])
-def test_daily_standard_deviation(data, expected_standard_deviation):
-    from inflammation.models import s_dev
-    result_data = s_dev(data)['standard deviation']
-    npt.assert_approx_equal(result_data, expected_standard_deviation)
+
+def test_daily_min(): 
+    """Test that min function works for an array of positive and negative integers."""
+    from inflammation.models import daily_min
+
+    test_input = np.array([[ 4, -2, 5],
+                           [ 1, -6, 2],
+                           [-4, -1, 9]])
+    
+    test_result = np.array([-4, -6, 2])
+
+    npt.assert_array_equal(daily_min(test_input), test_result)
+
+def test_daily_max(): 
+    """Test that max function works for an array of positive and negative integers."""
+    from inflammation.models import daily_max
+
+    test_input = np.array([[4, 2, 5],
+                           [1, 6, 2],
+                           [4, 1, 9]])
+    test_result = np.array([-4, -6, 2])
+
+    npt.assert_array_equal(daily_max(test_input), test_result)
+
+def test_daily_min_type_error(): 
+    """Test for TypeError when passing strings"""
+    from inflammation.models import daily_min
+
+    with pytest.raises(TypeError): 
+        expected_error = daily_min([['Hello', 'there'], ['General', 'Kenobi']])
+
+
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[1, 2],[3, 4],[5, 6]],[3, 4]),
+        ([[0, 0],[0, 0],[0, 0]],[0, 0]),
+
+    ])
+def test_daily_mean_mult(test, expected): 
+    """Test mean function works for array of zeroes and positive integers."""
+    from inflammation.models import daily_mean
+    npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
+
