@@ -1,0 +1,32 @@
+name: CI workflow
+
+# We can specify which Github events will trigger a CI build
+on: 
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches:
+      - main
+# now define a single job 'build' (but could define more, can be anything other than build)
+jobs:
+  build:
+    # we can also specify the OS to run tests on
+    runs-on: ubuntu-latest
+    steps:
+      # Next we need to checkout out repository, and set up Python
+    # A 'name' is just an optional label shown in the log - helpful to clarify progress - and can be anything
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+          with:
+            python-version: "3.9"
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r requirements.txt
+
+      - name: Test with Pytest
+        run: |
+          python -m pytest --cov=inflammation.models tests/test_models.py
