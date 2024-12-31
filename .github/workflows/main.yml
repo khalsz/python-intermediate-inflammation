@@ -3,10 +3,6 @@ name: CI workflow
 # We can specify which Github events will trigger a CI build
 on: 
   push:
-    branches: [main, develop]
-  pull_request:
-    branches:
-      - main
 # now define a single job 'build' (but could define more, can be anything other than build)
 jobs:
   build:
@@ -20,8 +16,8 @@ jobs:
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v3
-          with:
-            python-version: "3.9"
+        with:
+            python-version: "3.10"
       - name: Install Python Dependencies
         run: |
           python3 -m pip install --upgrade pip
