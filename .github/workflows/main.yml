@@ -14,7 +14,7 @@ jobs:
           - ubuntu-latest
           - windows-latest 
           - macos-latest
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.12", "3.10"]
     steps:
       # Next we need to checkout out repository, and set up Python
     # A 'name' is just an optional label shown in the log - helpful to clarify progress - and can be anything
